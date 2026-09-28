@@ -1,5 +1,6 @@
 import ParticleClassCode as PCC
 import numpy as np
+import matplotlib.pyplot as plt ## Used for creating graphs
 
 ## Constants
 
@@ -148,3 +149,32 @@ else:
 ## Measure-Command { python MainGravityCode.py }
 ## 
 ## It took approximately 15 seconds for the program to analyze the large particles
+
+## Creating the graph:
+
+## 1. Input measured data
+print("\n")
+print ("It toop approximately 15 seconds to execute the program.")
+t_measured = 15 ## The time it took to execute the program in seconds
+N_measured = 2048 ## The amount of particles in the large file.
+
+## 2. Calculate the coefficient A
+a = (t_measured)/(N_measured**2)
+print (f"The Calculated scaling factor A is {a: .4e} seconds/particle^2"
+)
+
+# 3. Generate data points for the plot
+N_values = np.linspace(0, 10000, 500)
+t_values = a * (N_values**2)
+
+# 4. Create the plot
+plt.figure(figsize=(8, 5))
+plt.plot(N_values, t_values, label=f'Model: $t(N) = {a:.2e} \\cdot N^2$', color='blue')
+plt.scatter([N_measured], [t_measured], color='red', zorder=5, label=f'Measured ({N_measured} particles)')
+
+plt.title('N-Body Simulation Time Scaling ($O(N^2)$)')
+plt.xlabel('Number of Particles ($N$)')
+plt.ylabel('Execution Time (seconds)')
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.legend()
+plt.savefig("X_vs_Y_graph_for_QuadraticExecutionTimeComplexity.pdf")
