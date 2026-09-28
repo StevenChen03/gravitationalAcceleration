@@ -154,7 +154,7 @@ else:
 
 ## 1. Input measured data
 print("\n")
-print ("It toop approximately 15 seconds to execute the program.")
+print ("It took approximately 15 seconds to execute the program.")
 t_measured = 15 ## The time it took to execute the program in seconds
 N_measured = 2048 ## The amount of particles in the large file.
 
